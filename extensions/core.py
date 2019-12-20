@@ -1,7 +1,7 @@
 from discord.ext import commands
 
 
-class Core:
+class Core(commands.Cog):
 	@commands.command()
 	async def ping(ctx):
 		await ctx.send("Pong!")
