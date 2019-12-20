@@ -9,7 +9,7 @@ extensions = ("core",)
 
 class Bot17(commands.AutoShardedBot):
 	def __init__(self, *args, **kwargs):
-		super().__init__(self, *args, **kwargs)
+		super().__init__(*args, **kwargs)
 
 		self.epoch = datetime.now()
 
