@@ -3,6 +3,10 @@ from discord.ext import commands
 
 class Core(commands.Cog):
 	@commands.command()
+	async def logout(self, ctx):
+		await ctx.bot.close()
+
+	@commands.command()
 	async def ping(self, ctx):
 		await ctx.send("Pong!")
 
