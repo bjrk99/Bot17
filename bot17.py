@@ -4,7 +4,7 @@ from discord.ext import commands
 import discord
 
 
-extensions = ("core",)
+extensions = ("core", "music")
 
 
 class Bot17(commands.AutoShardedBot):
