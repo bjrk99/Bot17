@@ -6,7 +6,7 @@ import traceback
 from discord.ext import commands
 
 
-class Core(commands.Cog):
+class Admin(commands.Cog):
 	def cleanup_code(self, code):
 		if code.startswith("```") and code.endswith("```"):
 			return "\n".join(code.split("\n")[1:-1])
@@ -16,9 +16,8 @@ class Core(commands.Cog):
 	@commands.command(name="eval")
 	async def cmd_eval(self, ctx, *, code):
 		"""Evaluate some code in Bot17's environment
-		
-		Credit to https://github.com/rapptz
-		"""
+
+		Credit to https://github.com/rapptz"""
 		env = {
 			"ctx": ctx
 		}
@@ -50,24 +49,28 @@ class Core(commands.Cog):
 			else:
 				await ctx.send(f"```py\n{value}{ret}\n```")
 
-	@commands.command()
-	async def logout(self, ctx):
+	@commands.command(name="logout")
+	async def cmd_logout(self, ctx):
 		await ctx.bot.pool.close()
 		await ctx.bot.close()
 
-	@commands.command()
-	async def ping(self, ctx):
-		await ctx.send("Pong!")
-
-	@commands.command()
-	async def reload(self, ctx, extention):
+	@commands.command(name="reload")
+	async def cmd_reload(self, ctx, extention):
 		await ctx.bot.unload_extention(f"extensions.{extention}")
 		
 		try:
-			await ctx.bot.load(f"extensions.{extention}")
+			await ctx.bot.load_extention(f"extensions.{extention}")
 		except:
 			await ctx.send("Error loading extension.")
 
 
+class Core(commands.Cog):
+	@commands.command(name="ping")
+	async def cmd_ping(self, ctx):
+		"""Ping Bot17"""
+		await ctx.send("Pong!")
+
+
 def setup(bot):
+	bot.add_cog(Admin())
 	bot.add_cog(Core())
