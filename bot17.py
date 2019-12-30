@@ -13,6 +13,10 @@ class Bot17(commands.AutoShardedBot):
 
 		self.epoch = datetime.now()
 		self.pool = pool
+		self.prefixes = {}
 
 		for extension in extensions:
 			self.load_extension(f"extensions.{extension}")
+
+	def callable_prefix(self, bot, msg):
+		return self.prefixes.get(msg.guild.id, secrets.default_prefix)

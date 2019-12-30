@@ -7,7 +7,7 @@ import secrets
 
 async def main():
 	pool = await asyncpg.create_pool(**secrets.sql)
-	bot = Bot17(command_prefix="!", pool=pool)
+	bot = Bot17(pool=pool)
 
 	await bot.start(secrets.token)
 
