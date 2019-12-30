@@ -1,16 +1,15 @@
 import asyncio
+import asyncpg
 
 from bot17 import Bot17
-from secrets import token
+import secrets
 
 
 async def main():
-	bot = Bot17("!")
+	pool = await asyncpg.create_pool(**secrets.sql)
+	bot = Bot17(command_prefix="!", pool=pool)
 
-	try:
-		await bot.start(token)
-	except KeyboardInterrupt:
-		await bot.logout()
+	await bot.start(secrets.token)
 
 if __name__ == "__main__":
 	asyncio.get_event_loop().run_until_complete(main())
