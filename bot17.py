@@ -3,6 +3,9 @@ from datetime import datetime
 from discord.ext import commands
 import discord
 
+import secrets
+
+
 extensions = ("core", "music")
 
 
