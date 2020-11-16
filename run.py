@@ -10,7 +10,7 @@ async def main():
 
 	query = """CREATE TABLE IF NOT EXISTS guilds(
 					guild_id BIGINT PRIMARY KEY,
-					prefix TEXT NOT NULL);"""
+					prefix TEXT[] NOT NULL);"""
 	await pool.execute(query)
 
 	records = await pool.fetch("SELECT * FROM guilds")
