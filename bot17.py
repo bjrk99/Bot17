@@ -21,4 +21,4 @@ class Bot17(commands.AutoShardedBot):
 			self.load_extension(f"extensions.{extension}")
 
 	def callable_prefix(self, bot, msg):
-		return self.prefixes.get(msg.guild.id, secrets.default_prefix)
+		return self.prefixes.get(msg.guild.id, secrets.default_prefixes)
