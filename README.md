@@ -8,10 +8,10 @@ default_prefixes = ('!', '?')
 token = \<token>
 
 sql = {
-	'host': \<host>,
-	'port': \<port>,
-	'database': \<database>,
-	'user': \<username>,
-	'password': \<password>,
+	'host': <host>,
+	'port': <port>,
+	'database': <database>,
+	'user': <username>,
+	'password': <password>,
 }
 ```
