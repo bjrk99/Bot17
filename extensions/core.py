@@ -70,6 +70,12 @@ class Core(commands.Cog):
 		"""Ping Bot17"""
 		await ctx.send("Pong!")
 
+	@commands.group(name="prefixes", invoke_without_command=True)
+	async def cmd_prefixes(self, ctx):
+		"""Server specific prefix control"""
+		prefixes = ctx.bot.callable_prefix(ctx.bot, ctx.message)
+		await ctx.send("Prefixes for this Server:\n" + "\n".join(prefixes))
+
 
 def setup(bot):
 	bot.add_cog(Admin())
