@@ -76,6 +76,21 @@ class Core(commands.Cog):
 		prefixes = ctx.bot.callable_prefix(ctx.bot, ctx.message)
 		await ctx.send("Prefixes for this Server:\n" + "\n".join(prefixes))
 
+	@cmd_prefixes.command(name="add")
+	async def cmd_prefixes_add(self, ctx, *prefixes):
+		current_prefixes = ctx.bot.prefixes[ctx.message.guild.id]
+		current_prefixes.extend(prefixes)
+		await ctx.send(f"New prefixes added.")
+
+	@cmd_prefixes.command(name="remove")
+	async def cmd_prefixes_remove(self, ctx, *prefixes):
+		current_prefixes = ctx.bot.prefixes[ctx.message.guild.id]
+
+		for p in prefixes:
+			current_prefixes.remove(p)
+
+		await ctx.send("Prefixes removed.")
+
 
 def setup(bot):
 	bot.add_cog(Admin())
