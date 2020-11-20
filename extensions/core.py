@@ -51,12 +51,14 @@ class Admin(commands.Cog):
 
 	@commands.command(name="logout")
 	async def cmd_logout(self, ctx):
+		"""Logout Bot17"""
 		await ctx.bot.sync_db()
 		await ctx.bot.pool.close()
 		await ctx.bot.close()
 
 	@commands.command(name="reload")
 	async def cmd_reload(self, ctx, extention):
+		"""Reload a specific extension"""
 		await ctx.bot.unload_extention(f"extensions.{extention}")
 		
 		try:
@@ -79,6 +81,7 @@ class Core(commands.Cog):
 
 	@cmd_prefixes.command(name="add")
 	async def cmd_prefixes_add(self, ctx, *prefixes):
+		"""Add prefixes to the server config"""
 		config = ctx.bot.guild_configs.get(ctx.guild.id)
 
 		if not config:
@@ -92,6 +95,7 @@ class Core(commands.Cog):
 
 	@cmd_prefixes.command(name="remove")
 	async def cmd_prefixes_remove(self, ctx, *prefixes):
+		"""Remove prefixes from the server config"""
 		config = ctx.bot.guild_configs.get(ctx.guild.id)
 
 		if not config:
