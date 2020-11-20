@@ -10,13 +10,13 @@ async def main():
 
 	query = """CREATE TABLE IF NOT EXISTS guilds(
 					guild_id BIGINT PRIMARY KEY,
-					prefix TEXT[] NOT NULL);"""
+					prefixes TEXT[] NOT NULL);"""
 	await pool.execute(query)
 
 	records = await pool.fetch("SELECT * FROM guilds")
-	prefixes = {r["guild_id"]: r["prefix"] for r in records}
+	guild_configs = {r["guild_id"]: {k: v for k, v in r.items()} for r in records}
 
-	bot = Bot17(pool=pool, prefixes=prefixes)
+	bot = Bot17(pool=pool, guild_configs=guild_configs)
 	await bot.start(secrets.token)
 
 if __name__ == "__main__":
