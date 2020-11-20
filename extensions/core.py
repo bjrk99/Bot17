@@ -78,18 +78,29 @@ class Core(commands.Cog):
 
 	@cmd_prefixes.command(name="add")
 	async def cmd_prefixes_add(self, ctx, *prefixes):
-		current_prefixes = ctx.bot.prefixes[ctx.message.guild.id]
+		config = ctx.bot.guild_configs.get(ctx.guild.id)
+
+		if not config:
+			config = ctx.bot.gen_config(ctx.guild.id)
+		
+		current_prefixes = config["prefixes"]
 		current_prefixes.extend(prefixes)
+
 		await ctx.send(f"New prefixes added.")
+		config["updated"] = True
 
 	@cmd_prefixes.command(name="remove")
 	async def cmd_prefixes_remove(self, ctx, *prefixes):
-		current_prefixes = ctx.bot.prefixes[ctx.message.guild.id]
+		config = ctx.bot.guild_configs.get(ctx.guild.id)
 
+		if not config:
+			config = ctx.bot.gen_config(ctx.guild.id)
+		
 		for p in prefixes:
-			current_prefixes.remove(p)
+			config["prefixes"].remove(p)
 
 		await ctx.send("Prefixes removed.")
+		config["updated"] = True
 
 
 def setup(bot):

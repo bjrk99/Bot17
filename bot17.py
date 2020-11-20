@@ -23,3 +23,6 @@ class Bot17(commands.AutoShardedBot):
 	def callable_prefix(self, bot, msg):
 		config = self.guild_configs.get(msg.guild.id)
 		return config["prefixes"] if config else secrets.default_prefixes
+
+	def gen_config(self, guild_id):
+		self.guild_configs[guild_id] = {"prefixes": {'?', '!'}}
