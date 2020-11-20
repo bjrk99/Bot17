@@ -1,3 +1,4 @@
+import asyncio
 from datetime import datetime
 
 from discord.ext import commands
@@ -16,6 +17,8 @@ class Bot17(commands.AutoShardedBot):
 		self.epoch = datetime.now()
 		self.pool = pool
 		self.guild_configs = guild_configs
+
+		self.loop.create_task(self.sync_db_loop())
 
 		for extension in extensions:
 			self.load_extension(f"extensions.{extension}")
@@ -41,3 +44,9 @@ class Bot17(commands.AutoShardedBot):
 					await self.pool.execute(update, config["prefixes"], config["guild_id"])
 
 				del config['updated']
+
+	async def sync_db_loop(self):
+		while not self.is_closed():
+			await asyncio.sleep(30)
+			await self.sync_db()
+
