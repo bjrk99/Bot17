@@ -43,7 +43,7 @@ class Bot17(commands.AutoShardedBot):
 				else:
 					await self.pool.execute(update, config["prefixes"], config["guild_id"])
 
-				del config['updated']
+				config['updated'] = False
 
 	async def sync_db_loop(self):
 		while not self.is_closed():
