@@ -25,4 +25,19 @@ class Bot17(commands.AutoShardedBot):
 		return config["prefixes"] if config else secrets.default_prefixes
 
 	def gen_config(self, guild_id):
-		self.guild_configs[guild_id] = {"prefixes": {'?', '!'}}
+		self.guild_configs[guild_id] = {"guild_id": guild_id, "prefixes": ['?', '!']}
+		return self.guild_configs[guild_id]
+
+	async def sync_db(self):
+		insert = 'INSERT INTO guilds VALUES ($1, $2);'
+		update = 'UPDATE guilds SET prefixes = $1 WHERE guild_id = $2'
+
+		for config in self.guild_configs.values():
+			if config.get("updated"):
+				if not config.get("exists"):
+					await self.pool.execute(insert, config["guild_id"], config["prefixes"])
+					config["exists"] = True
+				else:
+					await self.pool.execute(update, config["prefixes"], config["guild_id"])
+
+				del config['updated']

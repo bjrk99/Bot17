@@ -51,6 +51,7 @@ class Admin(commands.Cog):
 
 	@commands.command(name="logout")
 	async def cmd_logout(self, ctx):
+		await ctx.bot.sync_db()
 		await ctx.bot.pool.close()
 		await ctx.bot.close()
 

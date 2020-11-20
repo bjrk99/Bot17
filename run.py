@@ -14,7 +14,7 @@ async def main():
 	await pool.execute(query)
 
 	records = await pool.fetch("SELECT * FROM guilds")
-	guild_configs = {r["guild_id"]: {k: v for k, v in r.items()} for r in records}
+	guild_configs = {r["guild_id"]: {"exists":True, **{k: v for k, v in r.items()}} for r in records}
 
 	bot = Bot17(pool=pool, guild_configs=guild_configs)
 	await bot.start(secrets.token)
