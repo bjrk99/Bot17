@@ -53,9 +53,8 @@ class Admin(commands.Cog):
 	@commands.command(name="logout")
 	async def cmd_logout(self, ctx):
 		"""Logout Bot17"""
-		await ctx.bot.sync_db()
-		await ctx.bot.pool.close()
-		await ctx.bot.close()
+		await ctx.send("Logging out...")
+		await ctx.bot.stop()
 
 	@commands.command(name="reload")
 	async def cmd_reload(self, ctx, extention):

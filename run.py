@@ -18,6 +18,7 @@ async def main():
 
 	bot = Bot17(pool=pool, guild_configs=guild_configs)
 	await bot.start(secrets.token)
+	await pool.close()
 
 if __name__ == "__main__":
 	asyncio.get_event_loop().run_until_complete(main())

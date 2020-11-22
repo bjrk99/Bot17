@@ -18,7 +18,7 @@ class Bot17(commands.AutoShardedBot):
 		self.pool = pool
 		self.guild_configs = guild_configs
 
-		self.loop.create_task(self.sync_db_loop())
+		self._sync_db_loop = self.loop.create_task(self.sync_db_loop())
 
 		for extension in extensions:
 			self.load_extension(f"extensions.{extension}")
@@ -30,6 +30,11 @@ class Bot17(commands.AutoShardedBot):
 	def gen_config(self, guild_id):
 		self.guild_configs[guild_id] = {"guild_id": guild_id, "prefixes": ['?', '!']}
 		return self.guild_configs[guild_id]
+
+	async def stop(self):
+		self._sync_db_loop.cancel()
+		await self.sync_db()
+		await self.close()
 
 	async def sync_db(self):
 		insert = 'INSERT INTO guilds VALUES ($1, $2);'
