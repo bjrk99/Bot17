@@ -5,7 +5,7 @@ Yet another generic Discord bot.
 #### Example Config - secrets.py
 ```
 default_prefixes = ('!', '?')
-token = \<token>
+token = <token>
 
 sql = {
 	'host': <host>,
