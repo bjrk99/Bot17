@@ -66,8 +66,8 @@ class Admin(commands.Cog):
 		except:
 			await ctx.send("Error loading extension.")
 
-	@commands.command(hidden=True)
-	async def sql(self, ctx, *, query: str):
+	@commands.command(name='sql')
+	async def cmd_sql(self, ctx, *, query: str):
 		"""Run some SQL
 
 		Credit to https://github.com/rapptz"""
